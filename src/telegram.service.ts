@@ -10,7 +10,7 @@ export class TelegramService {
   constructor() {
     // TODO: Move these to environment variables for security
     this.botToken = process.env.TELEGRAM_BOT_TOKEN || '8304926589:AAHHBM3nCYeDh1douPbTRn01-hR_aEP_d_w';
-    this.chatId = process.env.TELEGRAM_CHAT_ID || '622229536';
+    this.chatId = process.env.TELEGRAM_CHAT_ID || '1324675035';
   }
 
   async sendMessage(text: string): Promise<boolean> {
