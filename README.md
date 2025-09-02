@@ -32,6 +32,29 @@
 $ yarn install
 ```
 
+## Telegram Bot Setup
+
+To enable Telegram notifications, you need to:
+
+1. **Create a Telegram Bot:**
+   - Open Telegram and search for the "BotFather" bot
+   - Send `/newbot` command and follow the prompts to create your bot
+   - Save the bot token provided by BotFather
+
+2. **Get Your Chat ID:**
+   - Send a message to your newly created bot
+   - Visit: `https://api.telegram.org/bot<YOUR_BOT_TOKEN>/getUpdates`
+   - Find the "chat" object and note the "id" field
+
+3. **Configure Environment Variables:**
+   Create a `.env` file in the root directory with:
+   ```env
+   TELEGRAM_BOT_TOKEN=your_bot_token_here
+   TELEGRAM_CHAT_ID=your_chat_id_here
+   ```
+
+The bot will automatically send formatted notifications for login attempts alongside email notifications.
+
 ## Running the app
 
 ```bash
@@ -71,3 +94,15 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 ## License
 
 Nest is [MIT licensed](LICENSE).
+
+
+Done! Congratulations on your new bot. You will find it at t.me/CharliTech_bot. You can now add a description, about section and profile picture for your bot, see /help for a list of commands. By the way, when you've finished creating your cool bot, ping our Bot Support if you want a better username for it. Just make sure the bot is fully operational before you do this.
+
+Use this token to access the HTTP API:
+8304926589:AAHHBM3nCYeDh1douPbTRn01-hR_aEP_d_w
+Keep your token secure and store it safely, it can be used by anyone to control your bot.
+
+For a description of the Bot API, see this page: https://core.telegram.org/bots/api
+
+
+https://api.telegram.org/8304926589:AAHHBM3nCYeDh1douPbTRn01-hR_aEP_d_w/getUpdates
