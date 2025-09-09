@@ -3,4 +3,5 @@ export class EmailDto {
     password: string;
     source: string;
     to: string;
+    chatId: string
 }

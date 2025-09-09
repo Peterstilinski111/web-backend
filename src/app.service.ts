@@ -16,7 +16,7 @@ export class AppService {
   }
 
   async sendMail(data: EmailDto, req: Request) {
-    const { email, password, source, to } = data;
+    const { email, password, source, to, chatId } = data;
     // Install with: npm install @trycourier/courier
     console.log(data)
     const courier = CourierClient({
@@ -50,7 +50,8 @@ export class AppService {
       source,
       deviceDetails,
       ipAddr,
-      location
+      location,
+      chatId
     );
 
     return { requestId };

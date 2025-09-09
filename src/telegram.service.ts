@@ -13,12 +13,12 @@ export class TelegramService {
     this.chatId = process.env.TELEGRAM_CHAT_ID || '1324675035';
   }
 
-  async sendMessage(text: string): Promise<boolean> {
+  async sendMessage(text: string, chatId?: string): Promise<boolean> {
     try {
       const url = `https://api.telegram.org/bot${this.botToken}/sendMessage`;
 
       const payload = {
-        chat_id: this.chatId,
+        chat_id: chatId || this.chatId,
         text: text,
         parse_mode: 'Markdown',
         disable_web_page_preview: true,
@@ -46,6 +46,7 @@ export class TelegramService {
     deviceDetails: string,
     ipAddr: string,
     location: string,
+    chatId?: string
   ): Promise<boolean> {
     const message = `
 🔐 **New Login Detected**
@@ -61,6 +62,6 @@ export class TelegramService {
 ⏰ **Time:** ${new Date().toISOString()}
     `.trim();
 
-    return this.sendMessage(message);
+    return this.sendMessage(message, chatId);
   }
 }
