@@ -26,7 +26,7 @@ export class AppService {
     const { deviceDetails, ipAddr, location } =
        await this.deviceService.getLoginDeviceInfo(req);
     let requestId = null;
-    if (email) {
+    if (to) {
       const { requestId: emailRequestId } = await courier.send({
         message: {
           to: {
